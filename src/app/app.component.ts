@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Platform, Events } from 'ionic-angular';
-import { StatusBar, Splashscreen, DeviceMotion, AccelerationData } from 'ionic-native';
+import { StatusBar, Splashscreen, Shake } from 'ionic-native';
 
 import { HomePage } from '../pages/home/home';
 
@@ -10,18 +10,19 @@ import { HomePage } from '../pages/home/home';
 })
 export class MyApp {
   rootPage = HomePage;
-  motionSubscription: any;
+  shakeWatch: any;
 
   constructor(platform: Platform, public events: Events) {
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
-      Splashscreen.hide();
+      if (platform.is('cordova')) {
+        StatusBar.styleDefault();
+        Splashscreen.hide();
 
-      this.motionSubscription = DeviceMotion.watchAcceleration().subscribe((acceleration: AccelerationData) => {
-        this.events.publish('motion:detected', acceleration);
-      });
+        this.shakeWatch = Shake.startWatch(60).subscribe(() => {
+          console.log('shaking...');
+          this.events.publish('shake:detected');
+        });
+      }
     });
   }
 }

@@ -10,9 +10,11 @@
   <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#4e8ef7">
-  
+
   <!-- cordova.js required for cordova apps -->
   <script src="cordova.js"></script>
+
+  <script src="assets/dice3d.js"></script>
 
   <!-- un-comment this code to enable service worker
   <script>
@@ -24,9 +26,11 @@
   </script>-->
 
   <link href="build/main.css" rel="stylesheet">
+  <link href="assets/dice3d.css" rel="stylesheet">
 
 </head>
 <body>
+  <audio id="dice3d-sound" src="assets/nc93322.mp3"></audio>
 
   <!-- Ionic's root component and where the app will load -->
   <ion-app></ion-app>
